@@ -2,3 +2,6 @@ build/
 .vs/
 target/
 .idea/
+.env
+.env.local
+.env.*.local
