@@ -3,7 +3,7 @@
   "configurePresets": [
     {
       "name": "windows-clang-debug",
-      "displayName": "Windows Clang Debug",
+      "displayName": "Windows Clang Debug + clang-tidy",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/out/build/${presetName}",
       "cacheVariables": {
@@ -11,16 +11,14 @@
         "CMAKE_CXX_STANDARD": "23",
         "CMAKE_CXX_STANDARD_REQUIRED": "ON",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CMAKE_C_COMPILER": "clang-cl",
+        "CMAKE_CXX_COMPILER": "clang-cl",
         "CMAKE_CXX_CLANG_TIDY": "clang-tidy;--config-file=${sourceDir}/.clang-tidy"
-      },
-      "environment": {
-        "CC": "clang-cl",
-        "CXX": "clang-cl"
       }
     },
     {
       "name": "windows-clang-release",
-      "displayName": "Windows Clang Release",
+      "displayName": "Windows Clang Release + clang-tidy",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/out/build/${presetName}",
       "cacheVariables": {
@@ -28,11 +26,9 @@
         "CMAKE_CXX_STANDARD": "23",
         "CMAKE_CXX_STANDARD_REQUIRED": "ON",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CMAKE_C_COMPILER": "clang-cl",
+        "CMAKE_CXX_COMPILER": "clang-cl",
         "CMAKE_CXX_CLANG_TIDY": "clang-tidy;--config-file=${sourceDir}/.clang-tidy"
-      },
-      "environment": {
-        "CC": "clang-cl",
-        "CXX": "clang-cl"
       }
     }
   ],

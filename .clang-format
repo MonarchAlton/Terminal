@@ -3,7 +3,7 @@
 
 BasedOnStyle: LLVM
 Language: Cpp
-Standard: c++23
+Standard: Latest
 
 # General layout
 ColumnLimit: 120
