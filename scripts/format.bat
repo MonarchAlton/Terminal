@@ -12,7 +12,7 @@ echo.
 echo Formatting C++ files...
 
 for /r %%f in (*.cpp *.hpp *.h *.cxx *.hxx *.cc) do (
-    echo %%f | findstr /i "\\out\\ \\build\\ \\.git\\" >nul
+    echo %%f | findstr /i "\\out\\ \\build\\ \\.git\\ \\docs\\generated\\ \\third_party\\conan\\" >nul
     if errorlevel 1 (
         clang-format -i "%%f"
         if errorlevel 1 (
