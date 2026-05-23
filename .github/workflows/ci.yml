@@ -34,12 +34,12 @@ jobs:
       - name: Check C++ formatting
         shell: cmd
         run: |
-          if not exist scripts\check-format.bat (
-            echo Missing scripts\check-format.bat
+          if not exist scripts\format.bat (
+            echo Missing scripts\format.bat
             dir scripts
             exit /b 1
           )
-          call scripts\check-format.bat
+          call scripts\format.bat
 
       - name: Rust formatting
         shell: cmd
