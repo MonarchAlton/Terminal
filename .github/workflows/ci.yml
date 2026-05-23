@@ -29,7 +29,7 @@ jobs:
 
       - name: Check C++ formatting
         shell: cmd
-        run: call .\scripts\check-format.bat
+        run: call .\scripts\format.bat
 
       - name: Rust formatting
         shell: cmd
