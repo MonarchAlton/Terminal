@@ -13,8 +13,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 option(BUILD_TESTS "Build Tests" OFF)
 
-add_subdirectory(src/pricing-engine)
-add_subdirectory(src/risk-engine)
+add_subdirectory(src/pricing_engine)
+add_subdirectory(src/risk_engine)
 add_subdirectory(src/dashboard)
 
 if(BUILD_TESTS)

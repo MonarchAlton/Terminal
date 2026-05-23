@@ -4,4 +4,4 @@ version="0.1.0"
 edition="2021"
 
 [dependencies]
-persistence-adapter={path="../persistence-adapter"}
+persistence_adaptor={path="../persistence_adaptor"}

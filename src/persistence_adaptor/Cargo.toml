@@ -1,5 +1,5 @@
 [package]
-name="persistence-adapter"
+name="persistence_adaptor"
 version="0.1.0"
 edition="2021"
 

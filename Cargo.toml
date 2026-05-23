@@ -4,5 +4,5 @@ resolver="2"
 members = [
 	"src/application",
 	"src/gateway",
-	"src/persistence-adapter"
+	"src/persistence_adaptor"
 ]
