@@ -1,0 +1,147 @@
+# Repository-wide C++ static analysis rules.
+# This file should live at the repository root as: .clang-tidy
+
+Checks: >
+  -*,
+  bugprone-*,
+  cppcoreguidelines-*,
+  modernize-*,
+  performance-*,
+  portability-*,
+  readability-*,
+  clang-analyzer-*,
+  misc-*,
+  -bugprone-easily-swappable-parameters,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -cppcoreguidelines-macro-usage,
+  -cppcoreguidelines-non-private-member-variables-in-classes,
+  -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+  -cppcoreguidelines-pro-bounds-constant-array-index,
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic,
+  -cppcoreguidelines-pro-type-reinterpret-cast,
+  -cppcoreguidelines-pro-type-union-access,
+  -cppcoreguidelines-pro-type-vararg,
+  -cppcoreguidelines-owning-memory,
+  -modernize-use-trailing-return-type,
+  -readability-convert-member-functions-to-static,
+  -readability-function-cognitive-complexity,
+  -readability-identifier-length,
+  -readability-magic-numbers,
+  -readability-named-parameter,
+  -misc-non-private-member-variables-in-classes
+
+WarningsAsErrors: ''
+HeaderFilterRegex: '.*'
+FormatStyle: file
+
+CheckOptions:
+  # Namespaces
+  - key: readability-identifier-naming.NamespaceCase
+    value: lower_case
+
+  # Types
+  - key: readability-identifier-naming.ClassCase
+    value: CamelCase
+
+  - key: readability-identifier-naming.StructCase
+    value: CamelCase
+
+  - key: readability-identifier-naming.EnumCase
+    value: CamelCase
+
+  - key: readability-identifier-naming.UnionCase
+    value: CamelCase
+
+  # Functions and methods: lower camelCase, for example calculatePrice / runScenario.
+  - key: readability-identifier-naming.FunctionCase
+    value: camelBack
+
+  - key: readability-identifier-naming.MethodCase
+    value: camelBack
+
+  # Local-scope variables: ls_PascalCase
+  - key: readability-identifier-naming.LocalVariableCase
+    value: CamelCase
+
+  - key: readability-identifier-naming.LocalVariablePrefix
+    value: ls_
+
+  # Parameters/arguments: arg_PascalCase
+  - key: readability-identifier-naming.ParameterCase
+    value: CamelCase
+
+  - key: readability-identifier-naming.ParameterPrefix
+    value: arg_
+
+  # Non-member variables outside local scope.
+  # These should be rare. Prefer constants, members, or explicit domain objects.
+  - key: readability-identifier-naming.VariableCase
+    value: camelBack
+
+  # Private/protected members: m_PascalCase
+  - key: readability-identifier-naming.PrivateMemberCase
+    value: CamelCase
+
+  - key: readability-identifier-naming.PrivateMemberPrefix
+    value: m_
+
+  - key: readability-identifier-naming.ProtectedMemberCase
+    value: CamelCase
+
+  - key: readability-identifier-naming.ProtectedMemberPrefix
+    value: m_
+
+  # Public members are discouraged but, when used for simple data structures,
+  # they should remain PascalCase without the m_ prefix.
+  - key: readability-identifier-naming.PublicMemberCase
+    value: CamelCase
+
+  # Constants: UPPER_CASE in every instance.
+  - key: readability-identifier-naming.ConstantCase
+    value: UPPER_CASE
+
+  - key: readability-identifier-naming.LocalConstantCase
+    value: UPPER_CASE
+
+  - key: readability-identifier-naming.GlobalConstantCase
+    value: UPPER_CASE
+
+  - key: readability-identifier-naming.StaticConstantCase
+    value: UPPER_CASE
+
+  - key: readability-identifier-naming.ClassConstantCase
+    value: UPPER_CASE
+
+  - key: readability-identifier-naming.ConstexprVariableCase
+    value: UPPER_CASE
+
+  - key: readability-identifier-naming.EnumConstantCase
+    value: UPPER_CASE
+
+  # Prefer brace/list initialisation where clang-tidy can safely recommend it.
+  - key: cppcoreguidelines-pro-type-member-init.UseAssignment
+    value: 'false'
+
+  # Enforce [[nodiscard]] for functions with return values where clang-tidy can safely recommend it.
+  - key: modernize-use-nodiscard.ReplacementString
+    value: '[[nodiscard]]'
+
+  # Function size guidance.
+  # Advisory only at first; useful for spotting orchestration bloat.
+  - key: readability-function-size.LineThreshold
+    value: '80'
+
+  - key: readability-function-size.StatementThreshold
+    value: '40'
+
+  - key: readability-function-size.BranchThreshold
+    value: '8'
+
+  - key: readability-function-size.ParameterThreshold
+    value: '6'
+
+  - key: bugprone-argument-comment.StrictMode
+    value: '1'
+
+  - key: modernize-use-nullptr.NullMacros
+    value: 'NULL'

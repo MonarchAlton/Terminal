@@ -1,0 +1,71 @@
+# Repository-wide C/C++ formatting rules.
+# This file should live at the repository root as: .clang-format
+
+BasedOnStyle: LLVM
+Language: Cpp
+Standard: c++20
+
+# General layout
+ColumnLimit: 120
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ContinuationIndentWidth: 4
+
+# Braces and blocks
+# Use compact opening braces for functions and control blocks:
+# foo() {
+#     ...
+# }
+BreakBeforeBraces: Attach
+
+# Namespaces
+NamespaceIndentation: None
+CompactNamespaces: false
+FixNamespaceComments: true
+
+# Includes
+SortIncludes: CaseSensitive
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '^<.*>$'
+    Priority: 1
+  - Regex: '^".*"$'
+    Priority: 2
+
+# Pointers and references
+PointerAlignment: Left
+ReferenceAlignment: Left
+DerivePointerAlignment: false
+
+# Const style: east const.
+# Prefer: Type const, Type& const, Type* const.
+# Note: top-level const on references is redundant in C++, so prefer Type const& for const references.
+QualifierAlignment: Custom
+QualifierOrder: ['type', 'const', 'volatile']
+
+# Function declarations and calls
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortEnumsOnASingleLine: false
+BinPackArguments: false
+BinPackParameters: false
+AllowAllArgumentsOnNextLine: true
+AllowAllParametersOfDeclarationOnNextLine: true
+
+# Constructor initializers
+BreakConstructorInitializers: BeforeComma
+ConstructorInitializerIndentWidth: 4
+
+# Operators and expressions
+# Prefer list initialisation for variable declarations:
+# Type ls_Name{value};
+# auto ls_Value{Type{}};
+# Note: clang-format cannot fully enforce this; clang-tidy covers most cases.
+BreakBeforeBinaryOperators: None
+BreakBeforeTernaryOperators: true
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeParens: ControlStatements
+SortUsingDeclarations: true
