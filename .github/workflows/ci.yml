@@ -96,11 +96,11 @@ jobs:
 
       - name: Configure CMake AddressSanitizer
         shell: cmd
-        run: cmake --preset windows-clang-asan-debug
+        run: cmake --preset windows-clang-asan
 
       - name: Build C++ AddressSanitizer
         shell: cmd
-        run: cmake --build --preset build-windows-clang-asan-debug
+        run: cmake --build --preset build-windows-clang-asan
 
       - name: Generate Doxygen documentation
         shell: cmd

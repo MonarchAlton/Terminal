@@ -225,7 +225,7 @@ Out of scope:
 | CI becomes too slow                        | Developers avoid running full checks or ignore CI feedback.         | Keep the current gate lean. Add heavier checks only when justified.                           |
 | `clang-tidy` produces noisy warnings       | Developers may treat warnings as noise rather than useful feedback. | Keep the `.clang-tidy` baseline strict but not excessive. Disable noisy checks intentionally. |
 | Local and CI environments diverge          | Checks pass locally but fail remotely, or vice versa.               | Keep scripts and CMake presets committed to the repo. Prefer explicit tool configuration.     |
-| Formatting script misses files             | Some C++ files may not be checked.                                  | Keep file extensions in `scripts/check-format.bat` updated as the repo evolves.               |
+| Formatting script misses files             | Some C++ files may not be checked.                                  | Keep file extensions in `scripts/format.bat` updated as the repo evolves.               |
 | Rust checks fail before Rust modules exist | CI noise from missing Cargo workspace.                              | Rust steps are conditional and skip cleanly when `Cargo.toml` is absent.                      |
 
 ## Implementation Notes
@@ -235,7 +235,7 @@ The initial implementation includes:
 ```text
 .github/workflows/ci.yml
 scripts/format.bat
-scripts/check-format.bat
+scripts/format.bat
 scripts/quality-check.bat
 .clang-format
 .clang-tidy
@@ -296,7 +296,7 @@ scripts\format.bat
 | Validation Method       | Success Criteria                                                                                 |
 | ----------------------- | ------------------------------------------------------------------------------------------------ |
 | GitHub Actions pipeline | The CI workflow completes successfully on pushed branches.                                       |
-| C++ formatting check    | `scripts/check-format.bat` passes without formatting violations.                                 |
+| C++ formatting check    | `scripts/format.bat` passes without formatting violations.                                 |
 | CMake configure         | `cmake --preset windows-clang-debug` succeeds.                                                   |
 | C++ build               | `cmake --build --preset build-windows-clang-debug` succeeds.                                     |
 | `clang-tidy`            | Static analysis runs as part of the CMake build.                                                 |
