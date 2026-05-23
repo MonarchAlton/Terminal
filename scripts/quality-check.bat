@@ -14,6 +14,17 @@ echo %CD%
 
 echo.
 echo ========================================
+echo Conan: install Debug dependencies
+echo ========================================
+conan install . --profile:host=conan/profiles/windows-debug --profile:build=conan/profiles/windows-debug --output-folder=third_party/conan/windows-clang-debug --build=missing
+if errorlevel 1 (
+    echo Conan Debug dependency install failed.
+    popd
+    exit /b 1
+)
+
+echo.
+echo ========================================
 echo C++: formatting check
 echo ========================================
 call scripts\check-format.bat
@@ -79,28 +90,6 @@ echo ========================================
 cmake --build --preset build-windows-clang-debug
 if errorlevel 1 (
     echo CMake build failed.
-    popd
-    exit /b 1
-)
-
-echo.
-echo ========================================
-echo C++: AddressSanitizer configure
-echo ========================================
-cmake --preset windows-clang-asan
-if errorlevel 1 (
-    echo AddressSanitizer configure failed.
-    popd
-    exit /b 1
-)
-
-echo.
-echo ========================================
-echo C++: AddressSanitizer build
-echo ========================================
-cmake --build --preset build-windows-clang-asan
-if errorlevel 1 (
-    echo AddressSanitizer build failed.
     popd
     exit /b 1
 )

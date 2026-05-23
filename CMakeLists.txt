@@ -16,9 +16,18 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-option(BUILD_TESTS "Build Tests" OFF)
+option(BUILD_TESTS "Build Tests" ON)
 option(WARNINGS_AS_ERRORS "Treat compiler warnings as errors" ON)
 option(ENABLE_SECURITY_HARDENING "Enable security-oriented compiler flags" ON)
+
+find_package(Catch2)
+find_package(fmt REQUIRED)
+find_package(spdlog REQUIRED)
+find_package(nlohmann_json REQUIRED)
+find_package(glfw3 REQUIRED)
+find_package(glad REQUIRED)
+find_package(glm REQUIRED)
+find_package(volk REQUIRED)
 
 add_library(project_options INTERFACE)
 
@@ -55,6 +64,7 @@ target_link_options(project_options
         >
 )
 
+add_subdirectory(src/shared)
 add_subdirectory(src/pricing_engine)
 add_subdirectory(src/risk_engine)
 add_subdirectory(src/dashboard)

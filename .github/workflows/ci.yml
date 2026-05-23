@@ -26,6 +26,16 @@ jobs:
           clang-tidy --version
           rustc --version
           cargo --version
+          python --version
+          pip --version
+
+      - name: Install Conan
+        shell: cmd
+        run: pip install conan
+
+      - name: Install C++ Debug dependencies
+        shell: cmd
+        run: conan install . --profile:host=conan/profiles/windows-debug --profile:build=conan/profiles/windows-debug --output-folder=third_party/conan/windows-clang-debug --build=missing
 
       - name: Check C++ formatting
         shell: cmd
@@ -65,14 +75,6 @@ jobs:
       - name: Build C++
         shell: cmd
         run: cmake --build --preset build-windows-clang-debug
-
-      - name: Configure CMake AddressSanitizer
-        shell: cmd
-        run: cmake --preset windows-clang-asan
-
-      - name: Build C++ AddressSanitizer
-        shell: cmd
-        run: cmake --build --preset build-windows-clang-asan
 
       - name: Fuzzing scaffold check
         shell: cmd

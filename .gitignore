@@ -7,4 +7,6 @@ target/
 .env.*.local
 docs/generated/
 out/
-build/
+third_party/conan/
+docs/generated/
+CMakeUserPresets.json
