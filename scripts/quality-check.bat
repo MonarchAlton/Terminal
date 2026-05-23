@@ -87,7 +87,7 @@ echo.
 echo ========================================
 echo C++: AddressSanitizer configure
 echo ========================================
-cmake --preset windows-clang-asan-debug
+cmake --preset windows-clang-asan
 if errorlevel 1 (
     echo AddressSanitizer configure failed.
     popd
@@ -98,7 +98,7 @@ echo.
 echo ========================================
 echo C++: AddressSanitizer build
 echo ========================================
-cmake --build --preset build-windows-clang-asan-debug
+cmake --build --preset build-windows-clang-asan
 if errorlevel 1 (
     echo AddressSanitizer build failed.
     popd
