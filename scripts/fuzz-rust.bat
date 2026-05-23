@@ -1,15 +1,25 @@
-# Fuzzing
+@echo off
+setlocal
 
-This directory contains fuzzing targets for narrow input boundaries.
+echo ========================================
+echo Rust fuzzing scaffold check
+echo ========================================
 
-Fuzzing should target parsers, validators, decoders, and contract deserialisation logic.
+set "REPO_ROOT=%~dp0.."
+pushd "%REPO_ROOT%"
 
-Good fuzz targets:
+if not exist Cargo.toml (
+    echo Skipping Rust fuzzing: no Cargo.toml found.
+    popd
+    exit /b 0
+)
 
-- market data message parser,
-- scenario file parser,
-- API DTO deserialisation,
-- pricing request validation,
-- risk request validation.
+echo Rust workspace detected.
+echo Fuzzing is scaffolded but no Rust fuzz target is required yet.
+echo Future setup:
+echo   cargo install cargo-fuzz --locked
+echo   cargo fuzz init
+echo   cargo fuzz run target_name
 
-Avoid fuzzing the whole application.
+popd
+exit /b 0

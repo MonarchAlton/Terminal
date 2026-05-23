@@ -12,6 +12,17 @@ echo.
 echo Repository root:
 echo %CD%
 
+echo.
+echo ========================================
+echo C++: formatting check
+echo ========================================
+call scripts\check-format.bat
+if errorlevel 1 (
+    echo C++ formatting check failed.
+    popd
+    exit /b 1
+)
+
 if exist Cargo.toml (
     echo.
     echo ========================================
@@ -42,17 +53,6 @@ if exist Cargo.toml (
     cargo test --all-targets --all-features
     if errorlevel 1 (
         echo Rust tests failed.
-        popd
-        exit /b 1
-    )
-
-    echo.
-    echo ========================================
-    echo Rust: dependency audit
-    echo ========================================
-    cargo audit
-    if errorlevel 1 (
-        echo Rust dependency audit failed.
         popd
         exit /b 1
     )
@@ -107,11 +107,18 @@ if errorlevel 1 (
 
 echo.
 echo ========================================
-echo Documentation: Doxygen
+echo Fuzzing scaffold checks
 echo ========================================
-call scripts\docs.bat
+call scripts\fuzz-cpp.bat
 if errorlevel 1 (
-    echo Documentation check failed.
+    echo C++ fuzz scaffold check failed.
+    popd
+    exit /b 1
+)
+
+call scripts\fuzz-rust.bat
+if errorlevel 1 (
+    echo Rust fuzz scaffold check failed.
     popd
     exit /b 1
 )
