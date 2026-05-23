@@ -27,9 +27,19 @@ jobs:
           rustc --version
           cargo --version
 
+      - name: Install Doxygen
+        shell: powershell
+        run: choco install doxygen.install -y
+
       - name: Check C++ formatting
         shell: cmd
-        run: call .\scripts\format.bat
+        run: |
+          if not exist scripts\check-format.bat (
+            echo Missing scripts\check-format.bat
+            dir scripts
+            exit /b 1
+          )
+          call scripts\check-format.bat
 
       - name: Rust formatting
         shell: cmd
@@ -58,6 +68,24 @@ jobs:
             echo Skipping Rust tests: no Cargo.toml found.
           )
 
+      - name: Install cargo-audit
+        shell: cmd
+        run: |
+          if exist Cargo.toml (
+            cargo install cargo-audit --locked
+          ) else (
+            echo Skipping cargo-audit install: no Cargo.toml found.
+          )
+
+      - name: Rust dependency audit
+        shell: cmd
+        run: |
+          if exist Cargo.toml (
+            cargo audit
+          ) else (
+            echo Skipping cargo audit: no Cargo.toml found.
+          )
+
       - name: Configure CMake
         shell: cmd
         run: cmake --preset windows-clang-debug
@@ -65,3 +93,21 @@ jobs:
       - name: Build C++
         shell: cmd
         run: cmake --build --preset build-windows-clang-debug
+
+      - name: Configure CMake AddressSanitizer
+        shell: cmd
+        run: cmake --preset windows-clang-asan-debug
+
+      - name: Build C++ AddressSanitizer
+        shell: cmd
+        run: cmake --build --preset build-windows-clang-asan-debug
+
+      - name: Generate Doxygen documentation
+        shell: cmd
+        run: call scripts\docs.bat
+
+      - name: Fuzzing scaffold check
+        shell: cmd
+        run: |
+          call scripts\fuzz-cpp.bat
+          call scripts\fuzz-rust.bat

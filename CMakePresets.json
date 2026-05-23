@@ -30,16 +30,59 @@
         "CMAKE_CXX_COMPILER": "clang-cl",
         "CMAKE_CXX_CLANG_TIDY": "clang-tidy;--config-file=${sourceDir}/.clang-tidy"
       }
+    },
+    {
+      "name": "windows-clang-asan",
+      "displayName": "Windows Clang AddressSanitizer + clang-tidy",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "CMAKE_CXX_STANDARD": "23",
+        "CMAKE_CXX_STANDARD_REQUIRED": "ON",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CMAKE_C_COMPILER": "clang-cl",
+        "CMAKE_CXX_COMPILER": "clang-cl",
+        "CMAKE_MSVC_RUNTIME_LIBRARY": "MultiThreadedDLL",
+        "CMAKE_CXX_FLAGS_RELWITHDEBINFO": "/fsanitize=address /Zi /O1 /DNDEBUG",
+        "CMAKE_C_FLAGS_RELWITHDEBINFO": "/fsanitize=address /Zi /O1 /DNDEBUG",
+        "CMAKE_CXX_CLANG_TIDY": "clang-tidy;--config-file=${sourceDir}/.clang-tidy"
+      }
     }
   ],
   "buildPresets": [
     {
       "name": "build-windows-clang-debug",
+      "displayName": "Build Windows Clang Debug",
       "configurePreset": "windows-clang-debug"
     },
     {
       "name": "build-windows-clang-release",
+      "displayName": "Build Windows Clang Release",
       "configurePreset": "windows-clang-release"
+    },
+    {
+      "name": "build-windows-clang-asan",
+      "displayName": "Build Windows Clang AddressSanitizer Debug",
+      "configurePreset": "windows-clang-asan"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "test-windows-clang-debug",
+      "displayName": "Test Windows Clang Debug",
+      "configurePreset": "windows-clang-debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "test-windows-clang-asan",
+      "displayName": "Test Windows Clang AddressSanitizer Debug",
+      "configurePreset": "windows-clang-asan",
+      "output": {
+        "outputOnFailure": true
+      }
     }
   ]
 }

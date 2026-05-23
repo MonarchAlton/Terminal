@@ -8,6 +8,10 @@ Accepted
 
 2026-05-23
 
+## Decision Owner
+
+Tom Alton
+
 ## Context
 
 The platform is being developed as a fintech-inspired real-time financial risk and pricing system. The project is intended to demonstrate strong architectural decision-making, modular design, high-performance systems programming, and professional engineering practices.

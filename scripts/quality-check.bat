@@ -45,6 +45,17 @@ if exist Cargo.toml (
         popd
         exit /b 1
     )
+
+    echo.
+    echo ========================================
+    echo Rust: dependency audit
+    echo ========================================
+    cargo audit
+    if errorlevel 1 (
+        echo Rust dependency audit failed.
+        popd
+        exit /b 1
+    )
 ) else (
     echo.
     echo Skipping Rust checks: no Cargo.toml found at repo root.
@@ -68,6 +79,39 @@ echo ========================================
 cmake --build --preset build-windows-clang-debug
 if errorlevel 1 (
     echo CMake build failed.
+    popd
+    exit /b 1
+)
+
+echo.
+echo ========================================
+echo C++: AddressSanitizer configure
+echo ========================================
+cmake --preset windows-clang-asan-debug
+if errorlevel 1 (
+    echo AddressSanitizer configure failed.
+    popd
+    exit /b 1
+)
+
+echo.
+echo ========================================
+echo C++: AddressSanitizer build
+echo ========================================
+cmake --build --preset build-windows-clang-asan-debug
+if errorlevel 1 (
+    echo AddressSanitizer build failed.
+    popd
+    exit /b 1
+)
+
+echo.
+echo ========================================
+echo Documentation: Doxygen
+echo ========================================
+call scripts\docs.bat
+if errorlevel 1 (
+    echo Documentation check failed.
     popd
     exit /b 1
 )
