@@ -2,7 +2,7 @@ add_executable(dashboard
     main.cpp
 )
 
-target_compile_features(dashboard
+target_link_libraries(dashboard
     PRIVATE
-        cxx_std_23
+        project_options
 )
