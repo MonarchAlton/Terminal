@@ -29,6 +29,15 @@ jobs:
           python --version
           pip --version
 
+      - name: Cache Conan packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.conan2
+          key: conan-${{ runner.os }}-vs2026-${{ hashFiles('conanfile.txt', 'conan/profiles/windows-debug') }}
+          restore-keys: |
+            conan-${{ runner.os }}-vs2026-
+
       - name: Install Conan
         shell: cmd
         run: pip install conan
@@ -75,6 +84,10 @@ jobs:
       - name: Build C++
         shell: cmd
         run: cmake --build --preset build-windows-clang-debug
+
+      - name: Run C++ tests
+        shell: cmd
+        run: ctest --preset test-windows-clang-debug
 
       - name: Fuzzing scaffold check
         shell: cmd

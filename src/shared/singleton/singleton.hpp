@@ -18,4 +18,4 @@ template <typename T> class Singleton {
 
   private:
 }; // Singleton
-} // namespace Common
+} // namespace common
