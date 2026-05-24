@@ -1,12 +1,12 @@
 #pragma once
 
-namespace Common {
+namespace common {
 template <typename T> class Singleton {
   public:
     [[nodiscard]]
     static T& instance() noexcept {
-        static T instance{};
-        return instance;
+        static T ls_instance{};
+        return ls_instance;
     }
     Singleton(Singleton const&) = delete;
     Singleton& operator=(Singleton const&) = delete;
@@ -14,7 +14,6 @@ template <typename T> class Singleton {
     Singleton& operator=(Singleton&&) = delete;
 
   protected:
-    Singleton() = default;
     Singleton() = default;
 
   private:

@@ -12,6 +12,13 @@ if(MSVC)
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 endif()
 
+function(disable_clang_tidy_for_target target_name)
+    set_target_properties(${target_name}
+        PROPERTIES
+            CXX_CLANG_TIDY ""
+    )
+endfunction()
+
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -49,7 +56,18 @@ target_compile_options(project_options
             /guard:cf
         >
 
-        $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:
+        $<$<CXX_COMPILER_ID:Clang>:
+            -Wall
+            -Wextra
+            -Wpedantic
+            -Wno-c++98-compat
+            -Wno-c++98-compat-pedantic
+            -Wno-c2y-extensions
+            -Wno-unknown-warning-option
+            $<$<BOOL:${WARNINGS_AS_ERRORS}>:-Werror>
+        >
+
+        $<$<CXX_COMPILER_ID:GNU>:
             -Wall
             -Wextra
             -Wpedantic
