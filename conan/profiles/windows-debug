@@ -10,4 +10,5 @@ compiler.runtime_type=Debug
 
 [conf]
 tools.cmake.cmaketoolchain:generator=Ninja
+tools.microsoft.msbuild:vs_version=18
 tools.build:compiler_executables={"c": "clang-cl", "cpp": "clang-cl"}

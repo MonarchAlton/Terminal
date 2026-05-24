@@ -10,7 +10,7 @@ permissions:
 jobs:
   quality:
     name: Windows quality checks
-    runs-on: windows-2022
+    runs-on: windows-2025-vs2026
 
     steps:
       - name: Checkout repository
